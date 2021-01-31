@@ -4,18 +4,7 @@ import { useEffect, useState } from 'react'
 import ItemList from '../src/component/itemList';
 import styles from '../styles/Home.module.css'
 
-export default function Home() {
-  const [list,setList] = useState([]);
-  const API_URL = "http://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline"
-
-  function getData(){
-    axios.get(API_URL).then((res)=>{
-      setList(res.data)
-    })
-  }
-  useEffect(()=>{
-    getData();
-  })
+export default function Home({list}) {
   return (
     <div>
       <Head>
@@ -24,4 +13,18 @@ export default function Home() {
       <ItemList list={list}></ItemList>
     </div>
   )
+}
+
+// 정적 생성
+export async function getStaticProps(){
+  const apiUrl = "http://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline"
+  // await : 프로미스가 처리되기까지 대기
+  const res = await axios.get(apiUrl);
+  const data = res.data;
+
+  return{
+      props:{
+          list: data
+      },
+  }
 }

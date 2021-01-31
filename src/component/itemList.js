@@ -13,7 +13,7 @@ export default function ItemList({list}){
                     <Grid.Row>
                         {data.map((item,index)=>(
                             <Grid.Column key={index}>
-                                <Link href={`/view/${item.id}`}>
+                                <Link as={`/view/${item.id}`} href={`/view/[id]`}>
                                     <a style={{display:"flex", flexDirection:"column", alignItems:"center"}}>
                                         <img alt={item.name} src={item.image_link}/>
                                         <strong>{item.name}</strong>
